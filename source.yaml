@@ -5,7 +5,7 @@ errors:
     temporary: false
   - name: NotFound
     description: a resource could not be found
-    httpStatusCode: 400
+    httpStatusCode: 404
     temporary: false
   - name: ServiceUnavailable
     description: a service was unavailable

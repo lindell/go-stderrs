@@ -10,6 +10,6 @@ All errors does also indicate if it's a temporary or not, and what HTTP status c
 | Name | Temporary | HTTP Status |
 |------|-----------|-------------|
 | BadData | No | 400|
-| NotFound | No | 400|
+| NotFound | No | 404|
 | ServiceUnavailable | Yes | 503|
 

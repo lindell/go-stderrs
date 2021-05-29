@@ -63,7 +63,7 @@ func (e NotFound) Temporary() bool {
 	return false
 }
 
-// HTTPStatusCode returns that this error should be represted as the 400 status code
+// HTTPStatusCode returns that this error should be represted as the 404 status code
 func (e NotFound) HTTPStatusCode() int {
-	return 400
+	return 404
 }
