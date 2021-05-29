@@ -28,7 +28,7 @@ func must(err error) {
 }
 
 func main() {
-	f, err := os.Open("./source.yaml")
+	f, err := os.Open("../source.yaml")
 	must(err)
 
 	defer f.Close()
@@ -37,13 +37,13 @@ func main() {
 	err = yaml.NewDecoder(f).Decode(&genFile)
 	must(err)
 
-	errTmpl, err := template.ParseFiles("./generate/error.tmpl")
+	errTmpl, err := template.ParseFiles("./error.tmpl")
 	must(err)
 
-	readmeTmpl, err := template.ParseFiles("./generate/README.tmpl.md")
+	readmeTmpl, err := template.ParseFiles("./README.tmpl.md")
 	must(err)
 
-	readmeF, err := os.Create("README.md")
+	readmeF, err := os.Create("../README.md")
 	must(err)
 	defer readmeF.Close()
 	must(readmeTmpl.Execute(readmeF, genFile))
@@ -52,7 +52,7 @@ func main() {
 	must(os.Mkdir("stderrs", 0744))
 
 	for _, e := range genFile.Errors {
-		f, err := os.Create(filepath.Join("./stderrs", fmt.Sprintf("%s.go", strings.ToLower(e.Name))))
+		f, err := os.Create(filepath.Join("../stderrs", fmt.Sprintf("%s.go", strings.ToLower(e.Name))))
 		must(err)
 		defer f.Close()
 		must(errTmpl.Execute(f, e))
