@@ -1,0 +1,69 @@
+package stderrs
+
+import "errors"
+
+// {{ .Name }} is used as an error when {{ .Description }}
+type {{ .Name }} struct {
+	Message string
+	Wrapped error
+}
+
+// New{{ .Name }} returns a new error {{ .Name }} error
+func New{{ .Name }}(message string) error {
+	return {{ .Name }}{
+		Message: message,
+	}
+}
+
+// NewWrapped{{ .Name }} returns a new error {{ .Name }} error that is wrapping another error
+func NewWrapped{{ .Name }}(err error, message string) error {
+	return {{ .Name }}{
+		Message: message,
+		Wrapped: err,
+	}
+}
+
+type i{{ .Name }} interface {
+	{{ .Name }}() bool
+}
+
+// Is{{ .Name }} returns checks if a func {{ .Name }}() bool exist and if that it returns true
+func Is{{ .Name }}(err error) bool {
+	if err == nil {
+		return false
+	}
+
+	if err{{ .Name }}, ok := err.(i{{ .Name }}); ok && err{{ .Name }}.{{ .Name }}() {
+		return true
+	}
+
+	return Is{{ .Name }}(errors.Unwrap(err))
+}
+
+// {{ .Name }} indicates that this error is used when {{ .Description }}
+func (e {{ .Name }}) {{ .Name }}() bool {
+	return true
+}
+
+// Error returns an error message
+func (e {{ .Name }}) Error() string {
+	if e.Message == "" {
+		return "{{ .Description }}"
+	}
+	return e.Message
+}
+
+// Unwrap returns the underlying error
+func (e {{ .Name }}) Unwrap() error {
+	return e.Wrapped
+}
+
+// Temporary indicated that this error {{if .Temporary}}is{{else}}is not{{end}} temporary
+func (e {{ .Name }}) Temporary() bool {
+	return {{ .Temporary }}
+}
+
+// HTTPStatusCode returns that this error should be represted as the {{ .HTTPStatusCode }} status code
+func (e {{ .Name }}) HTTPStatusCode() int {
+	return {{ .HTTPStatusCode }}
+}

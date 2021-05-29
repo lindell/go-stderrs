@@ -1,0 +1,13 @@
+errors:
+  - name: BadData
+    description: data provided was incorrectly formated or does not meet the specification
+    httpStatusCode: 400
+    temporary: false
+  - name: NotFound
+    description: a resource could not be found
+    httpStatusCode: 400
+    temporary: false
+  - name: ServiceUnavailable
+    description: a service was unavailable
+    httpStatusCode: 503
+    temporary: true
